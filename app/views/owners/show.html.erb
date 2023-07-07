@@ -1,0 +1,25 @@
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+  </tr>
+  <tr>
+      <td><%= @owner.first_name %></td>
+      <td><%= @owner.last_name %></td>
+  </tr>
+</table>
+<ul>
+    <li><%= link_to "Edit", edit_owner_path(@owner) %></li>
+    <li><%= link_to "Destroy", owner_path(@owner), data: { turbo_method: :delete,
+ turbo_confirm: "Are you sure?" } %></li>
+</ul>
+<br>
+<%= link_to "All Owners", owners_path %>
+
+<h2>Portfolios</h2>
+<div>
+  <%= render @owner.portfolios%>
+</div>
+<br>
+<h2>Add a Portfolio</h2>
+<%= render 'portfolios/form'%>
