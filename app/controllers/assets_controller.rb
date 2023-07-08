@@ -2,7 +2,7 @@ class AssetsController < ApplicationController
   def create
       @portfolio = Portfolio.find(params[:portfolio_id])
       @asset = @portfolio.assets.build(asset_params)
-      begin  
+      begin
           @asset.save
           redirect_to portfolio_path(@portfolio),
           notice: "Asset was successfully created"
@@ -10,11 +10,11 @@ class AssetsController < ApplicationController
           @asset.errors.add(:base, "Asset already exists")
           render :new , status: :unprocessable_entity
       end
-  end  
+  end
   def edit
       @portfolio = Portfolio.find(params[:portfolio_id])
       @asset = @portfolio.assets.find(params[:id])
-  end  
+  end
   def update
       @portfolio = Portfolio.find(params[:portfolio_id])
       @asset = @portfolio.assets.find(params[:id])
@@ -24,13 +24,13 @@ class AssetsController < ApplicationController
       else
           render :edit, status: :unprocessable_entity
       end
-  end  
+  end
   def destroy
       @portfolio = Portfolio.find(params[:portfolio_id])
       @asset = @portfolio.assets.find(params[:id])
       @asset.destroy
       redirect_to portfolio_path(@portfolio), status: :see_other
-  end  
+  end
   private
       def asset_params
           params.require(:asset).permit(:name, :description, :quantity, :price)

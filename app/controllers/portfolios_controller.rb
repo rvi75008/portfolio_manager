@@ -2,7 +2,7 @@ class PortfoliosController < ApplicationController
     def create
         @owner = Owner.find(params[:owner_id])
         @portfolio = @owner.portfolios.build(portfolio_params)
-        begin  
+        begin
             @portfolio.save
             redirect_to owner_path(@owner), notice: "Portfolio was successfully created"
         rescue ActiveRecord::RecordNotUnique
@@ -38,7 +38,7 @@ class PortfoliosController < ApplicationController
         end
     end
 
-    private 
+    private
     def portfolio_params
         params.require(:portfolio).permit(:name, :currency_id, :description)
     end
