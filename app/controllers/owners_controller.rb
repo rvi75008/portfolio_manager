@@ -13,10 +13,15 @@ class OwnersController < ApplicationController
 
   def create
     @owner = Owner.new(owner_params)
-    if @owner.save
-      redirect_to @owner
-    else
-      render :new, status: :unprocessable_entity
+    begin 
+      if @owner.save
+        redirect_to @owner
+      else
+        render :new, status: :unprocessable_entity
+      end
+    rescue ActiveRecord::RecordNotUnique
+      @owner.errors.add(:base, "Owner already exists")
+      render :new , status: :unprocessable_entity
     end
   end
 

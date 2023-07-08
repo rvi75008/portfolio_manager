@@ -1,4 +1,6 @@
-<%= form_with model: [@owner, @owner.portfolios.build] do |form| %>
+<h1>Edit Portfolio</h1>
+
+<%= form_with model: [@owner, @owner.portfolios.find(params[:id])] do |form| %>
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>

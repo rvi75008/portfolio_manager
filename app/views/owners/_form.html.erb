@@ -1,4 +1,12 @@
 <%= form_with model: owner do |form| %>
+  <% if owner.errors[:base].any? %>
+    <% owner.errors[:base].each do |message| %>
+    <div class="alert alert-danger">
+      <div><%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
   <div>
     <%= form.label :first_name %><br>
     <%= form.text_field :first_name %>
@@ -19,3 +27,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+<br>
+<%= link_to "Back to all owners", owners_path %>

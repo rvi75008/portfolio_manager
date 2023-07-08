@@ -1,5 +1,5 @@
 class Portfolio < ApplicationRecord
   belongs_to :owner
   
-  validates :name, presence: true
+  validates :name, :currency_id, presence: true
 end

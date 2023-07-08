@@ -1,4 +1,7 @@
 <p>
-    <%= portfolio.name %> - <%= portfolio.description %> 
-   <%# <%= link_to "Portfolio Assets", portfolio_path(@portfolio) ></li>%>
+    <%= portfolio.name %> - <%= portfolio.description %> - <%= Currency.find(portfolio.currency_id).name %>
+    <%= link_to "Edit Portfolio", edit_owner_portfolio_path(portfolio.owner) %>
+    <%= link_to "Delete Portfolio", [portfolio.owner, portfolio],
+    data: { turbo_method: :delete, confirm: "Are you sure?" }
+    %>
 </p>

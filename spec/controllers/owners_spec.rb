@@ -79,6 +79,20 @@ RSpec.describe OwnersController, type: :controller do
         expect(response.status).to eq(422)
       end
     end
+    context "when owner already exists" do
+      let(:owner_params) { { first_name: "John", last_name: "Doe" } }
+  
+      it "renders new with error status" do
+        allow(Owner).to receive(:new).and_return(Owner.new(owner_params))
+        allow_any_instance_of(Owner).to receive(:save).and_raise(ActiveRecord::RecordNotUnique)
+  
+        post :create, params: { owner: owner_params }
+  
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to render_template(:new)
+        expect(assigns(:owner).errors[:base]).to include("Owner already exists")
+      end
+    end
   end
 
   describe "GET #edit" do
