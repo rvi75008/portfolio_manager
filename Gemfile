@@ -56,8 +56,6 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'simplecov', require: false, group: :test
   gem 'byebug'
-  gem 'rubocop-rails'
-  gem 'rubocop-rake'
 end
 
 group :development do
