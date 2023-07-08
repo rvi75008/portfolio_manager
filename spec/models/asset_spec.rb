@@ -12,6 +12,6 @@ RSpec.describe Asset, type: :model do
     it { should validate_presence_of(:quantity) }
     it { should validate_presence_of(:unit_price) }
     it { should validate_presence_of(:unit_purchasing_price) }
-    it { should validate_presence_of(:type) }
+    it { should validate_presence_of(:asset_type) }
   end
 end

@@ -1,0 +1,12 @@
+<tr>
+    <td><%= asset.name %></td>
+    <td><%= asset.unit_price %></td>
+    <td><%= asset.unit_purchasing_price %></td>
+    <td><%= Currency.find(asset.currency_id).symbol %></td>
+    <td>To compute</td>
+    <td><%= asset.account %></td>
+    <td><%= asset.asset_type %></td>
+    <td><%= asset.ticker %></td>
+    <td><%= asset.sector %></td>
+    <td><%= asset.sub_sector %></td>
+</tr>
