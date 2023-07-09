@@ -1,0 +1,24 @@
+<h2>Owners</h2>
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th></th>
+  </tr>
+  <% @owners.each do |owner| %>
+    <tr>
+      <td><%= owner.first_name %></td>
+      <td><%= owner.last_name %></td>
+      <td><%= link_to "Profile", owner %></td>
+      <td><%= link_to "Delete", owner_path(owner), data: { turbo_method: :delete,
+      turbo_confirm: "Are you sure?" } %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Create New Owner", new_owner_path %>
+<br>
+<h2>Currencies</h2>
+<div>
+  <%= render 'currencies/currency'%>
+</div>
+<%= link_to "Create a New currency", new_currency_path %>

@@ -1,0 +1,18 @@
+<%= form_with model: @portfolio do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div class="field">
+    <%= form.label :currency_id %>
+    <%= form.collection_select :currency_id,
+     Currency.order(:name),:id,:name, include_blank: false %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,31 @@
+<%= form_with model: owner do |form| %>
+  <% if owner.errors[:base].any? %>
+    <% owner.errors[:base].each do |message| %>
+    <div class="alert alert-danger">
+      <div><%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :first_name %><br>
+    <%= form.text_field :first_name %>
+    <% owner.errors.full_messages_for(:first_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :last_name %><br>
+    <%= form.text_field :last_name %><br>
+    <% owner.errors.full_messages_for(:last_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+  <br>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<br>
+<%= link_to "Back to all owners", owners_path %>

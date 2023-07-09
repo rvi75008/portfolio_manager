@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  creation_date: 2023-07-07 21:41:31
+  owner: one
+
+two:
+  name: MyString
+  description: MyString
+  creation_date: 2023-07-07 21:41:31
+  owner: two

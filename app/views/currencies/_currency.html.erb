@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>Symbol</th>
+        <th>Code</th>
+        <th>Name</th>
+    </tr>
+    <% @currencies.each do |currency| %>
+        <tr>
+            <td><%= currency.symbol %></td>
+            <td><%= currency.code %></td>
+            <td><%= currency.name %></td>
+            <td><%= link_to "Delete", currency_path(currency),
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+        </tr>
+    <% end %>
+<table>

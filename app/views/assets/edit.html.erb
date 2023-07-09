@@ -1,0 +1,57 @@
+<%= form_with model: @asset,
+ url: owner_portfolio_asset_path(@asset.portfolio.owner, @asset.portfolio, @asset) do |form| %>
+    <div>
+        <%= form.label :name %><br>
+        <%= form.text_field :name %>
+    </div>
+
+    <div>
+        <%= form.label :quantity %><br>
+        <%= form.text_field :quantity %>
+    </div>
+
+
+    <div>
+        <%= form.label :unit_price %><br>
+        <%= form.text_field :unit_price %><br>
+    </div>
+
+    <div>
+        <%= form.label :unit_purchasing_price %><br>
+        <%= form.text_field :unit_purchasing_price %><br>
+    </div>
+
+    <div>
+        <%= form.label :currency_id %><br>
+        <%= form.collection_select :currency_id, Currency.all, :id, :name %><br>
+    </div>
+
+    <div>
+        <%= form.label :account %><br>
+        <%= form.text_field :account %><br>
+    </div>
+
+    <div>
+        <%= form.label :asset_type %><br>
+        <%= form.text_field :asset_type %><br>
+    </div>
+
+    <div>
+        <%= form.label :ticker %><br>
+        <%= form.text_field :ticker %><br>
+    </div>
+
+    <div>
+        <%= form.label :sector %><br>
+        <%= form.text_field :sector %><br>
+    </div>
+
+    <div>
+        <%= form.label :sub_sector %><br>
+        <%= form.text_field :sub_sector %><br>
+    </div>
+    <br>
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>

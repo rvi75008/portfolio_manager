@@ -1,0 +1,52 @@
+class OwnersController < ApplicationController
+  def index
+    @owners = Owner.all
+    @currencies = Currency.all
+  end
+
+  def show
+    @owner = Owner.find(params[:id])
+  end
+
+  def new
+    @owner = Owner.new
+  end
+
+  def create
+    @owner = Owner.new(owner_params)
+    begin
+      if @owner.save
+        redirect_to @owner
+      else
+        render :new, status: :unprocessable_entity
+      end
+    rescue ActiveRecord::RecordNotUnique
+      @owner.errors.add(:base, "Owner already exists")
+      render :new , status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @owner = Owner.find(params[:id])
+  end
+
+  def update
+    @owner = Owner.find(params[:id])
+    if @owner.update(owner_params)
+      redirect_to @owner
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @owner = Owner.find(params[:id])
+    @owner.destroy
+      redirect_to owners_path  , status: :see_other
+  end
+
+  private
+    def owner_params
+      params.require(:owner).permit(:first_name, :last_name)
+    end
+end

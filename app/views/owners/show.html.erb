@@ -1,0 +1,42 @@
+<h1>Owner</h1>
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+  </tr>
+  <tr>
+      <td><%= @owner.first_name %></td>
+      <td><%= @owner.last_name %></td>
+  </tr>
+</table>
+<br>
+<%= link_to "Edit", edit_owner_path(@owner) %>
+<%= link_to "Delete", owner_path(@owner), data: { turbo_method: :delete,
+ turbo_confirm: "Are you sure?" } %>
+<br>
+<h2>Portfolios</h2>
+<div>
+  <%= render @owner.portfolios%>
+</div>
+<br>
+<h2>Add a Portfolio</h2>
+<%= form_with model: [@owner, @owner.portfolios.build] do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div class="field">
+    <%= form.label :currency_id %>
+    <%= form.collection_select :currency_id,
+     Currency.order(:name),:id,:name, include_blank: false %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<br>
+<%= link_to "Back to All Owners", owners_path %>
