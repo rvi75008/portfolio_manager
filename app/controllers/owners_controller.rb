@@ -1,4 +1,6 @@
 class OwnersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @owners = Owner.all
     @currencies = Currency.all
@@ -14,6 +16,7 @@ class OwnersController < ApplicationController
 
   def create
     @owner = Owner.new(owner_params)
+    @owner.user_id = current_user.id
     begin
       if @owner.save
         redirect_to @owner

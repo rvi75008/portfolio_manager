@@ -1,4 +1,6 @@
 class CurrenciesController < ApplicationController
+    before_action :authenticate_user!
+
     def index
         @currencies = Currency.all
     end
