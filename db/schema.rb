@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_09_144251) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_09_155325) do
   create_table "assets", force: :cascade do |t|
     t.string "name", null: false
     t.float "quantity", null: false
@@ -56,7 +56,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_144251) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["first_name", "last_name"], name: "index_owners_on_first_name_and_last_name", unique: true
+    t.index ["user_id"], name: "index_owners_on_user_id"
   end
 
   create_table "portfolios", force: :cascade do |t|
@@ -71,10 +73,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_144251) do
     t.index ["owner_id"], name: "index_portfolios_on_owner_id"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.integer "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "password"
+    t.string "password_confirmation"
+    t.index ["role_id"], name: "index_users_on_role_id"
+  end
+
   add_foreign_key "assets", "currencies"
   add_foreign_key "assets", "portfolios"
   add_foreign_key "currency_rates", "currencies", column: "base_currency_id"
   add_foreign_key "currency_rates", "currencies", column: "target_currency_id"
+  add_foreign_key "owners", "users"
   add_foreign_key "portfolios", "currencies"
   add_foreign_key "portfolios", "owners"
+  add_foreign_key "users", "roles"
 end
