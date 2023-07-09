@@ -1,6 +1,6 @@
 <p>
     <%= portfolio.name %> - <%= portfolio.description %> - <%= Currency.find(portfolio.currency_id).name %>
-    <%= link_to "Edit Portfolio", edit_owner_portfolio_path(portfolio.owner) %>
+    <%= link_to "Edit Portfolio", edit_owner_portfolio_path(portfolio.owner, portfolio) %>
     <%= link_to "Delete Portfolio", [portfolio.owner, portfolio],
     data: { turbo_method: :delete, confirm: "Are you sure?" }
     %>
@@ -19,10 +19,24 @@
             <th>Sector</th>
             <th>SubSector</th>
         </tr>
-        <tr>
-            <%= render portfolio.assets %></div>
-        </tr>
-</table>
+        <% portfolio.assets.each do |asset| %>
+            <tr>
+                <td><%= asset.name %></td>
+                <td><%= asset.unit_price %></td>
+                <td><%= asset.unit_purchasing_price %></td>
+                <td><%= Currency.find(asset.currency_id).symbol %></td>
+                <td>To compute</td>
+                <td><%= asset.account %></td>
+                <td><%= asset.asset_type %></td>
+                <td><%= asset.ticker %></td>
+                <td><%= asset.sector %></td>
+                <td><%= asset.sub_sector %></td>
+                <td><%= link_to "Edit", edit_owner_portfolio_asset_path(asset.portfolio.owner, asset.portfolio, asset) %></td>
+                <td><%= link_to "Delete", [asset.portfolio.owner, asset.portfolio, asset],
+                        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+            </tr>
+        <% end %>
+    </table>
 <br>
 <h2>Add an Asset</h2>
 <%= form_with model: @asset, url: owner_portfolio_assets_path(portfolio.owner, portfolio) do |form| %>

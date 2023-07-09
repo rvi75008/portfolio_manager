@@ -39,7 +39,7 @@ RSpec.describe PortfoliosController, type: :controller do
 
 
   describe "DELETE #destroy" do
-    let!(:portfolio) { FactoryBot.create(:portfolio, owner: owner) }
+    let!(:portfolio) { FactoryBot.create(:portfolio, owner: owner, currency_id: currency.id) }
 
     it "destroys the requested portfolio" do
       expect {
@@ -55,20 +55,8 @@ RSpec.describe PortfoliosController, type: :controller do
     end
   end
 
-
-  describe "GET #show" do
-    let!(:portfolio) { FactoryBot.create(:portfolio, owner: owner) }
-
-    it "assigns the requested portfolio to @portfolio" do
-      get :show, params: { owner_id: owner.id, id: portfolio.id }
-
-      expect(assigns(:portfolio)).to eq(portfolio)
-    end
-  end
-
-
   describe "GET #edit" do
-    let!(:portfolio) { FactoryBot.create(:portfolio, owner: owner) }
+    let!(:portfolio) { FactoryBot.create(:portfolio, owner: owner, currency_id:currency.id) }
 
     it "assigns the requested portfolio to @portfolio" do
       get :edit, params: { owner_id: owner.id, id: portfolio.id }
@@ -84,7 +72,7 @@ RSpec.describe PortfoliosController, type: :controller do
   end
 
   describe "PATCH #update" do
-    let(:portfolio) { FactoryBot.create(:portfolio, owner: owner) }
+    let(:portfolio) { FactoryBot.create(:portfolio, owner: owner, currency_id:currency.id) }
 
     context "with valid params" do
       it "updates the requested portfolio" do
@@ -113,6 +101,24 @@ RSpec.describe PortfoliosController, type: :controller do
         patch :update, params: { owner_id: owner.id, id: portfolio.id, portfolio: { name: nil } }
 
         expect(response).to render_template(:edit)
+      end
+    end
+
+    describe "GET #new" do
+      before do
+        get :new, params: { owner_id: owner.id }
+      end
+
+      it "assigns the owner" do
+        expect(assigns(:owner)).to eq(owner)
+      end
+
+      it "builds a new portfolio" do
+        expect(assigns(:portfolio)).to be_a_new(Portfolio)
+      end
+
+      it "renders the new template" do
+        expect(response).to render_template(:new)
       end
     end
   end

@@ -15,7 +15,7 @@ class CurrenciesController < ApplicationController
         @currency = Currency.new(currency_params)
         begin
             if @currency.save
-                redirect_to @currency
+                redirect_to owners_path
             else
                 render :new, status: :unprocessable_entity
             end
@@ -32,7 +32,7 @@ class CurrenciesController < ApplicationController
     def update
         @currency = currency.find(params[:id])
         if @currency.update(currency_params)
-            redirect_to @currency
+            redirect_to owners_path
         else
             render :edit, status: :unprocessable_entity
         end
@@ -41,7 +41,7 @@ class CurrenciesController < ApplicationController
     def destroy
         @currency = Currency.find(params[:id])
         @currency.destroy
-            redirect_to currencies_path  , status: :see_other
+            redirect_to owners_path
     end
 
     private

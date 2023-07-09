@@ -11,16 +11,16 @@ class PortfoliosController < ApplicationController
         end
     end
 
+    def new
+        @owner = Owner.find(params[:owner_id])
+        @portfolio = @owner.portfolios.build
+    end
+
     def destroy
         @owner = Owner.find(params[:owner_id])
         @portfolio = @owner.portfolios.find(params[:id])
         @portfolio.destroy
         redirect_to owner_path(@owner), status: :see_other
-    end
-
-    def show
-        @owner = Owner.find(params[:owner_id])
-        @portfolio = @owner.portfolios.find(params[:id])
     end
 
     def edit

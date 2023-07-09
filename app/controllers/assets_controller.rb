@@ -1,7 +1,11 @@
 class AssetsController < ApplicationController
     def create
         @portfolio = Portfolio.find(params[:portfolio_id])
-        @asset = @portfolio.assets.build(asset_params)
+        @asset = @portfolio.assets.build(
+            params.permit(:name, :portfolio_id, :currency_id, :quantity, :unit_price, :unit_purchasing_price, :asset_type,
+                :account, :ticker, :sector, :sub_sector
+            )
+        )
         @asset.save
         redirect_to owner_path(@portfolio.owner), notice: "Asset was successfully created"
     end
@@ -10,19 +14,31 @@ class AssetsController < ApplicationController
         @asset = Asset.new
     end
 
-    def show
+    def destroy
+        @portfolio = Portfolio.find(params[:portfolio_id])
+        @asset = @portfolio.assets.find(params[:id])
+        @asset.destroy
+        redirect_to owner_path(@portfolio.owner), notice: "Asset was successfully deleted"
+    end
+
+    def edit
         @portfolio = Portfolio.find(params[:portfolio_id])
         @asset = @portfolio.assets.find(params[:id])
     end
 
-    def index
+    def update
         @portfolio = Portfolio.find(params[:portfolio_id])
-        @assets = @portfolio.assets.all
+        @asset = @portfolio.assets.find(params[:id])
+        if @asset.update(asset_params)
+            redirect_to owner_path(@portfolio.owner), notice: "Asset was successfully updated"
+        else
+            render :edit, status: :unprocessable_entity
+        end
     end
 
     private
     def asset_params
-        params.permit(:name, :portfolio_id, :currency_id, :quantity, :unit_price, :unit_purchasing_price, :asset_type,
+        params.require("asset").permit(:name, :portfolio_id, :currency_id, :quantity, :unit_price, :unit_purchasing_price, :asset_type,
             :account, :ticker, :sector, :sub_sector
         )
     end

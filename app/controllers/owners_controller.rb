@@ -1,6 +1,7 @@
 class OwnersController < ApplicationController
   def index
     @owners = Owner.all
+    @currencies = Currency.all
   end
 
   def show

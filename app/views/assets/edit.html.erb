@@ -1,4 +1,5 @@
-<%= form_with model: @asset, url: owner_portfolio_assets_path(asset.portfolio.owner, asset.portfolio, asset) do |form| %>
+<%= form_with model: @asset,
+ url: owner_portfolio_asset_path(@asset.portfolio.owner, @asset.portfolio, @asset) do |form| %>
     <div>
         <%= form.label :name %><br>
         <%= form.text_field :name %>
