@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :asset do
     id { |n| n}
-    name { "MyString" }
+    name { |n| "MyString #{n}" }
     currency_id { FactoryBot.create(:currency).id }
     portfolio_id { FactoryBot.create(:portfolio).id}
     quantity { 1.5 }

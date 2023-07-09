@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_08_192711) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_09_144251) do
   create_table "assets", force: :cascade do |t|
     t.string "name", null: false
     t.float "quantity", null: false
@@ -69,11 +69,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_08_192711) do
     t.index ["currency_id"], name: "index_portfolios_on_currency_id"
     t.index ["name", "owner_id"], name: "index_portfolios_on_name_and_owner_id", unique: true
     t.index ["owner_id"], name: "index_portfolios_on_owner_id"
-  end
-
-  create_table "transactions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "assets", "currencies"
